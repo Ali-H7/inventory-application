@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('node:path');
-
+const queries = require('./db/queries');
 const app = express();
 
 // App settings
@@ -13,7 +13,8 @@ app.use(express.static(assetsPath));
 
 // routes
 app.get('/', (req, res) => {
-  res.render('index');
+  const data = queries.getAll();
+  res.render('index', { data });
 });
 
 // Server
