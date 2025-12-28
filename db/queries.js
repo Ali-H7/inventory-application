@@ -1,4 +1,3 @@
-require('dotenv').config();
 const pool = require('./pool');
 
 // async function getAll() {
@@ -23,9 +22,8 @@ ON s.id = sg.series_id
 JOIN genre g 
 ON sg.genre_id = g.id
 GROUP BY s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.image_link, s.release_date;`);
+  return rows;
 }
-
-getAll();
 
 module.exports = {
   getAll,

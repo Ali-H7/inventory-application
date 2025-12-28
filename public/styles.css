@@ -7,3 +7,26 @@
   height: 96px;
   font-size: 1.6rem;
 }
+
+.content {
+  padding: 32px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.list {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
+  max-width: 880px;
+}
+
+img {
+  max-width: 200px;
+  max-height: 350px;
+}

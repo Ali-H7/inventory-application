@@ -12,8 +12,8 @@ const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
 
 // routes
-app.get('/', (req, res) => {
-  const data = queries.getAll();
+app.get('/', async (req, res) => {
+  const data = await queries.getAll();
   res.render('index', { data });
 });
 
