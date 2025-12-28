@@ -1,5 +1,10 @@
 <div class="card">
     <img src="<%=s.image_link%>" alt="Cover image of <%=s.title%>">
-    <h2><%=s.title%></h2>
+    <div>
+        <h2><%=s.title%></h2>
+        <form action="/series/<%=s.id%>/delete" method="post">
+            <button type="submit">Delete series</button>
+        </form>
+    </div>
     <h4><%=s.author%></h2>
 </div>

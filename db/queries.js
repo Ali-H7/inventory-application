@@ -50,8 +50,17 @@ async function addManga(bodyObject) {
   }
 }
 
+const seriesDeleteQuery = 'DELETE FROM series WHERE id = $1;';
+const seriesGenreDeleteQuery = 'DELETE FROM series_genre WHERE series_id = $1;';
+
+async function deleteManga(id) {
+  await pool.query(seriesGenreDeleteQuery, [id]);
+  await pool.query(seriesDeleteQuery, [id]);
+}
+
 module.exports = {
   getAll,
   getGenre,
   addManga,
+  deleteManga,
 };

@@ -29,6 +29,12 @@ app.post('/add-manga', async (req, res) => {
   res.redirect('/');
 });
 
+app.post('/series/:id/delete', async (req, res) => {
+  const { id } = req.params;
+  await queries.deleteManga(id);
+  res.redirect('/');
+});
+
 // Server
 const PORT = 3000;
 app.listen(PORT, (error) => {
