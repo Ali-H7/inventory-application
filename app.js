@@ -14,7 +14,19 @@ app.use(express.static(assetsPath));
 // routes
 app.get('/', async (req, res) => {
   const data = await queries.getAll();
+  console.log(data);
   res.render('index', { data });
+});
+
+app.get('/add-manga', async (req, res) => {
+  const genre = await queries.getGenre();
+  res.render('add-manga', { genre });
+});
+
+app.post('/add-manga', async (req, res) => {
+  const { body } = req;
+  await queries.addManga(body);
+  res.redirect('/');
 });
 
 // Server

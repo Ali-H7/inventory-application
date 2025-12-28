@@ -17,9 +17,9 @@ async function getAll() {
   const { rows } =
     await pool.query(`SELECT s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.image_link, s.release_date, json_agg(g.*) AS genre
 FROM series s 
-JOIN series_genre sg 
+LEFT JOIN series_genre sg 
 ON s.id = sg.series_id 
-JOIN genre g 
+LEFT JOIN genre g 
 ON sg.genre_id = g.id
 GROUP BY s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.image_link, s.release_date;`);
   return rows;
@@ -30,7 +30,28 @@ async function getGenre() {
   return rows;
 }
 
+const seriesInsertQuery =
+  'INSERT INTO series (title, chapter_count, status, publisher, author, image_link, release_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;';
+const seriesGenreInsertQuery = 'INSERT INTO series_genre (series_id, genre_id) VALUES ($1, $2);';
+
+async function addManga(bodyObject) {
+  const { title, chapterCount, status, publisher, author, image, date, genres } = bodyObject;
+  const { rows } = await pool.query(seriesInsertQuery, [
+    title,
+    chapterCount,
+    status,
+    publisher,
+    author,
+    image,
+    new Date(date),
+  ]);
+  for (const genre of genres) {
+    await pool.query(seriesGenreInsertQuery, [rows[0].id, genre]);
+  }
+}
+
 module.exports = {
   getAll,
   getGenre,
+  addManga,
 };
