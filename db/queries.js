@@ -25,6 +25,12 @@ GROUP BY s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.imag
   return rows;
 }
 
+async function getGenre() {
+  const { rows } = await pool.query(`SELECT * from genre`);
+  return rows;
+}
+
 module.exports = {
   getAll,
+  getGenre,
 };
