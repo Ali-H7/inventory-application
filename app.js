@@ -29,6 +29,27 @@ app.post('/add-manga', async (req, res) => {
   res.redirect('/');
 });
 
+app.get('/add-genre', (req, res) => {
+  res.render('add-genre');
+});
+
+app.post('/add-genre', async (req, res) => {
+  const { genre } = req.body;
+  await queries.addGenre(genre);
+  res.redirect('/');
+});
+
+app.get('/delete-genre', async (req, res) => {
+  const genres = await queries.getGenre();
+  res.render('delete-genre', { genres });
+});
+
+app.post('/delete-genre/:id', async (req, res) => {
+  const { id } = req.params;
+  await queries.deleteGenre(id);
+  res.redirect('/delete-genre');
+});
+
 app.post('/series/:id/delete', async (req, res) => {
   const { id } = req.params;
   await queries.deleteManga(id);
