@@ -25,6 +25,20 @@ GROUP BY s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.imag
   return rows;
 }
 
+const getMangaQuery = `SELECT s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.image_link, s.release_date, json_agg(g.*) AS genre
+FROM series s 
+LEFT JOIN series_genre sg 
+ON s.id = sg.series_id 
+LEFT JOIN genre g 
+ON sg.genre_id = g.id
+WHERE s.id = $1
+GROUP BY s.id, s.title, s.chapter_count, s.status, s.publisher, s.author, s.image_link, s.release_date;`;
+
+async function getManga(id) {
+  const { rows } = await pool.query(getMangaQuery, [id]);
+  return rows[0];
+}
+
 async function getGenre() {
   const { rows } = await pool.query(`SELECT * from genre`);
   return rows;
@@ -73,6 +87,7 @@ async function deleteGenre(id) {
 
 module.exports = {
   getAll,
+  getManga,
   getGenre,
   addManga,
   deleteManga,

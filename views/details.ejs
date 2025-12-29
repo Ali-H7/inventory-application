@@ -1,0 +1,62 @@
+<div class="details-body-container">
+  <div class="details-container">
+    <a class="back-button" href="/"><i class="fa-solid fa-arrow-left"></i><span>Back to Homepage</span></a>
+    <div class="details">
+      <img src="<%=series.image_link%>" alt="Cover image of <%=series.title%>" />
+      <div class="details-series-container">
+        <p class="details-title"><%=series.title%></p>
+        <div class="details-info-container">
+          <div class="details-left-container">
+            <div class="details-icon-container">
+              <i class="fa-solid fa-book-open"></i>
+              <div>
+                <p>Chapter Count:</p>
+                <p class="details-text"><%=series.chapter_count%></p>
+              </div>
+            </div>
+            <div class="details-icon-container">
+              <i class="fa-solid <%= series.status === 'Completed' ? 'fa-check' : 'fa-arrows-spin' %>"></i>
+              <div>
+                <p>Status:</p>
+                <p class="details-text"><%=series.status%></p>
+              </div>
+            </div>
+            <div class="details-icon-container">
+              <i class="fa-solid fa-newspaper"></i>
+              <div>
+                <p>Publisher:</p>
+                <p class="details-text"><%=series.publisher%></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-right-container">
+            <div class="details-icon-container">
+              <i class="fa-solid fa-user-pen"></i>
+              <div>
+                <p>Author:</p>
+                <p class="details-text"><%=series.author%></p>
+              </div>
+            </div>
+            <div class="details-icon-container">
+              <i class="fa-solid fa-calendar"></i>
+              <div>
+                <p>Release Date:</p>
+                <p class="details-text"><%=series.release_date.toLocaleDateString('en-GB')%></p>
+              </div>
+            </div>
+            <% if (genreString) { %>
+            <div class="details-icon-container">
+              <i class="fa-solid fa-list"></i>
+              <div>
+                <p>Genre:</p>
+                <p class="details-text"><%=genreString%></p>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

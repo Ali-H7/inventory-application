@@ -18,6 +18,18 @@ app.get('/', async (req, res) => {
   res.render('index', { data });
 });
 
+app.get('/series/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const series = await queries.getManga(id);
+
+  // check if the query returns an empty array or not before transforming it into a string
+  const genreString =
+    series.genre[0] !== null && series.genre.length > 0 ? series.genre.map((genre) => genre.genre_name).join() : null;
+
+  res.render('view-details', { series, genreString });
+});
+
 app.get('/add-manga', async (req, res) => {
   const genre = await queries.getGenre();
   res.render('add-manga', { genre });
