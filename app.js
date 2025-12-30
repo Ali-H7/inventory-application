@@ -10,6 +10,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
+app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 
 // routes
 app.get('/', async (req, res) => {
@@ -20,7 +21,6 @@ app.get('/', async (req, res) => {
 
 app.get('/series/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const series = await queries.getManga(id);
 
   // check if the query returns an empty array or not before transforming it into a string
