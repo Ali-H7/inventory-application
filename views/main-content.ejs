@@ -1,11 +1,5 @@
 <div class="content">
   <div class="content-container">
-    <div>
-      <h1>Manga List</h1>
-      <a href="/add-manga"><button>Add Manga</button></a>
-      <a href="/add-genre"><button>Add Genre</button></a>
-      <a href="/delete-genre"><button>Delete Genre</button></a>
-    </div>
     <div class="list"><% data.forEach((s)=> { %> <%- include('manga-card', {s}) %> <% }) %></div>
   </div>
 </div>

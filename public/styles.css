@@ -164,8 +164,25 @@ img {
   flex-direction: column;
   align-items: center;
   padding-top: 64px;
+  gap: 16px;
+}
+
+.genre-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.genere-form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 40px;
   font-size: 1.6rem;
+  background-color: #0f131c;
+  max-width: 800px;
+  padding: 64px 32px;
+  border-radius: 16px;
 }
 
 .genre-form {
@@ -197,11 +214,12 @@ img {
   display: flex;
   gap: 8px;
   align-items: center;
-  background-color: #0f131c;
+  background-color: #222b3f;
   color: #fff;
 }
 
 .genre-add:hover {
+  background-color: #2e3a55;
   cursor: pointer;
 }
 
@@ -222,7 +240,7 @@ img {
 .genre-delete-container {
   display: flex;
   padding: 8px;
-  background-color: #0f131c;
+  background-color: #222b3f;
   color: #fff;
   border-radius: 8px;
   gap: 4px;
@@ -240,4 +258,75 @@ img {
 
 .genere-delete-button i:hover {
   color: red;
+}
+
+/* add manga */
+
+.manga-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 64px 0;
+  font-size: 1.6rem;
+}
+
+.manga-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  flex: 1;
+}
+
+.manga-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #0f131c;
+  padding: 64px;
+  border-radius: 16px;
+  flex: 1;
+}
+
+.add-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.manga-form input,
+select {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+}
+.select2-container {
+  color: #000;
+  font-size: 1.6rem;
+}
+.manga-form-btn {
+  padding: 8px;
+  border-radius: 8px;
+  width: 35%;
+  align-self: center;
+  margin-top: 32px;
+  background-color: #222b3f;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+.manga-form-btn:hover {
+  cursor: pointer;
+  background-color: #2e3a55;
+}
+.manga-form-btn i {
+  color: #4ec6e0;
 }
