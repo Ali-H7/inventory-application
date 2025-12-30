@@ -41,10 +41,6 @@ app.post('/add-manga', async (req, res) => {
   res.redirect('/');
 });
 
-app.get('/add-genre', (req, res) => {
-  res.render('add-genre');
-});
-
 app.post('/add-genre', async (req, res) => {
   const { genre } = req.body;
   await queries.addGenre(genre);
