@@ -48,18 +48,18 @@ app.get('/add-genre', (req, res) => {
 app.post('/add-genre', async (req, res) => {
   const { genre } = req.body;
   await queries.addGenre(genre);
-  res.redirect('/');
+  res.redirect('/manage-genre');
 });
 
-app.get('/delete-genre', async (req, res) => {
+app.get('/manage-genre', async (req, res) => {
   const genres = await queries.getGenre();
-  res.render('delete-genre', { genres });
+  res.render('manage-genre', { genres });
 });
 
-app.post('/delete-genre/:id', async (req, res) => {
+app.post('/manage-genre/delete-genre/:id', async (req, res) => {
   const { id } = req.params;
   await queries.deleteGenre(id);
-  res.redirect('/delete-genre');
+  res.redirect('/manage-genre');
 });
 
 app.post('/series/:id/delete', async (req, res) => {

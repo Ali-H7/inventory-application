@@ -1,5 +1,9 @@
 <form action="/add-genre" method="post">
-  <label for="genre">Genre name:</label>
-  <input type="text" name="genre" id="genre" placeholder="Enter genre name" required />
-  <button type="submit">Submit</button>
+  <div class="genre-form">
+    <div class="genre-input-container">
+      <label class="gnere-form-label" for="genre">Genre name:</label>
+      <input class="genre-input" type="text" name="genre" id="genre" placeholder="Enter genre name" required />
+    </div>
+    <button class="genre-add" type="submit">Add <i class="fa-regular fa-plus"></i></button>
+  </div>
 </form>

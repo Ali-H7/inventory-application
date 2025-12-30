@@ -1,12 +1,12 @@
-<div class="genre-list">
-  <ul>
-    <% genres.forEach((genre)=>{ %>
-    <li>
-      <div>
-        <p><%=genre.genre_name%></p>
-        <form action="/delete-genre/<%=genre.id%>" method="post"><button type="submit">delete</button></form>
-      </div>
-    </li>
-    <% }) %>
-  </ul>
-</div>
+<ul class="genre-list">
+  <% genres.forEach((genre)=>{ %>
+  <li class="genre-delete-container">
+    <p><%=genre.genre_name%></p>
+    <form action="/manage-genre/delete-genre/<%=genre.id%>" method="post">
+      <button class="genere-delete-button" type="submit">
+        <i class="fa-regular fa-x" aria-hidden="true"></i>
+      </button>
+    </form>
+  </li>
+  <% }) %>
+</ul>
