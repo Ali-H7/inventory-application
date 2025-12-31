@@ -4,40 +4,47 @@
     <form action="/add-manga" method="post" class="manga-form">
       <div class="add-input-container">
         <label class="input-label" for="title">Title</label>
-        <input type="text" name="title" id="title" placeholder="Dragon Ball" required />
+        <input type="text" name="title" id="title" placeholder="Dragon Ball" value="<%=series.title%>" />
       </div>
       <div class="add-input-container">
         <label class="input-label" for="chapter-count">Chapter Count</label>
-        <input type="number" name="chapterCount" id="chapter-count" placeholder="123" required />
+        <input
+          type="number"
+          name="chapterCount"
+          id="chapter-count"
+          placeholder="123"
+          value="<%=series.chapterCount%>"
+        />
       </div>
       <div class="add-input-container">
         <label class="input-label" for="status">Status</label>
         <select id="status" name="status">
-          <option value="Completed">Completed</option>
-          <option value="Ongoing">Ongoing</option>
+          <option value="">--Please choose an option--</option>
+          <option value="Completed" <%=series.status === "Completed" ? "selected" : ''%>>Completed</option>
+          <option value="Ongoing" <%=series.status === "Ongoing" ? "selected" : ''%>>Ongoing</option>
         </select>
       </div>
       <div class="add-input-container">
         <label class="input-label" for="publisher">Publisher</label>
-        <input type="text" name="publisher" id="publisher" placeholder="Shueisha" required />
+        <input type="text" name="publisher" id="publisher" placeholder="Shueisha" value="<%=series.publisher%>" />
       </div>
       <div class="add-input-container">
         <label class="input-label" for="author">Author</label>
-        <input type="text" name="author" id="author" placeholder="Akira Toriyama" required />
+        <input type="text" name="author" id="author" placeholder="Akira Toriyama" value="<%=series.author%>" />
       </div>
       <div class="add-input-container">
-        <label class="input-label" for="image">Image Link</label>
-        <input type="text" name="image" id="image" placeholder="img.com/i1.jpg" required />
+        <label class="input-label" for="image">Image Link <span class="optional-label">Optional</span></label>
+        <input type="text" name="image" id="image" placeholder="img.com/i1.jpg" value="<%=series.image%>" />
       </div>
       <div class="add-input-container">
         <label class="input-label" for="date">Release Date</label>
-        <input type="date" id="date" name="date" />
+        <input type="date" id="date" name="date" value="<%=series.date%>" />
       </div>
       <div class="add-input-container">
-        <label class="input-label" for="genres">Genre</label>
+        <label class="input-label" for="genres">Genre <span class="optional-label">Optional</span></label>
         <select class="genres" id="genres" name="genres" multiple>
           <% genre.forEach((g)=>{ %>
-          <option value="<%=g.id%>"><%=g.genre_name%></option>
+          <option value="<%=g.id%>" <%=series.genres && series.genres.includes(g.id.toString()) ? "selected" : ''%>><%=g.genre_name%></option>
           <% }); %>
         </select>
       </div>

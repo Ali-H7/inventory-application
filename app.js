@@ -15,7 +15,7 @@ app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 // routes
 app.get('/', async (req, res) => {
   const data = await queries.getAll();
-  console.log(data);
+  // console.log(data);
   res.render('index', { data });
 });
 
@@ -32,14 +32,58 @@ app.get('/series/:id', async (req, res) => {
 
 app.get('/add-manga', async (req, res) => {
   const genre = await queries.getGenre();
-  res.render('add-manga', { genre });
+  const series = {
+    title: '',
+    chapterCount: '',
+    status: '',
+    publisher: '',
+    author: '',
+    image: null,
+    date: '',
+    genres: '',
+  };
+  res.render('add-manga', { series, genre, errors: {} });
 });
 
-app.post('/add-manga', async (req, res) => {
-  const { body } = req;
-  await queries.addManga(body);
-  res.redirect('/');
-});
+const { body, validationResult, matchedData } = require('express-validator');
+const validateUserInput = [
+  body('title').trim().notEmpty().withMessage('Manga Title is Required'),
+  body('chapterCount')
+    .trim()
+    .notEmpty()
+    .withMessage('Chapter Count is required')
+    .isNumeric()
+    .withMessage('Only numbers are allowed for the Chapter Count'),
+  body('status').notEmpty().withMessage('Please choose the status of the Manga'),
+  body('publisher').trim().notEmpty().withMessage('Publisher is Required'),
+  body('author').trim().notEmpty().withMessage('Author is Required'),
+  body('image')
+    .optional({ values: 'falsy' })
+    .trim()
+    .matches(/\.(jpg|jpeg|png|gif|webp)$/i)
+    .withMessage(`Image Link field an image with the extension 'jpg, jpeg, png, gif, webp.'`),
+  body('date').isDate().withMessage('Please select a date'),
+  body('genres').optional().trim().toArray(),
+  body('genres.*').optional().isNumeric().withMessage('Invalid Genre format'),
+];
+
+app.post('/add-manga', [
+  validateUserInput,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const { body: series } = req;
+      const genre = await queries.getGenre();
+      res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }) });
+      console.log(errors.array());
+    } else {
+      await queries.addManga(matchedData(req));
+      console.log('success');
+      res.redirect('/');
+    }
+  },
+]);
 
 app.post('/add-genre', async (req, res) => {
   const { genre } = req.body;

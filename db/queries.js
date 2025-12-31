@@ -48,19 +48,22 @@ const seriesInsertQuery =
   'INSERT INTO series (title, chapter_count, status, publisher, author, image_link, release_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;';
 const seriesGenreInsertQuery = 'INSERT INTO series_genre (series_id, genre_id) VALUES ($1, $2);';
 
-async function addManga(bodyObject) {
-  const { title, chapterCount, status, publisher, author, image, date, genres } = bodyObject;
+async function addManga(dataObject) {
+  const { title, chapterCount, status, publisher, author, image, date, genres } = dataObject;
   const { rows } = await pool.query(seriesInsertQuery, [
     title,
     chapterCount,
     status,
     publisher,
     author,
-    image,
+    image || '',
     new Date(date),
   ]);
-  for (const genre of genres) {
-    await pool.query(seriesGenreInsertQuery, [rows[0].id, genre]);
+
+  if (genres && genres.length >= 1) {
+    for (const genre of genres) {
+      await pool.query(seriesGenreInsertQuery, [rows[0].id, genre]);
+    }
   }
 }
 
