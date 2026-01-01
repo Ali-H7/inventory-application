@@ -15,7 +15,6 @@ app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 // routes
 app.get('/', async (req, res) => {
   const data = await queries.getAll();
-  // console.log(data);
   res.render('index', { data });
 });
 
@@ -25,7 +24,9 @@ app.get('/series/:id', async (req, res) => {
 
   // check if the query returns an empty array or not before transforming it into a string
   const genreString =
-    series.genre[0] !== null && series.genre.length > 0 ? series.genre.map((genre) => genre.genre_name).join() : null;
+    series.genre[0] !== null && series.genre.length > 0
+      ? series.genre.map((genre) => genre.genre_name).join(', ')
+      : null;
 
   res.render('view-details', { series, genreString });
 });
@@ -132,6 +133,26 @@ app.get('/series/:id/edit', async (req, res) => {
   const genre = await queries.getGenre();
   res.render('add-manga', { series: transformedSeries, genre, errors: {}, edit: true });
 });
+
+app.post('/series/:id/edit', [
+  validateUserInput,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const { body: series } = req;
+      const genre = await queries.getGenre();
+      res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }), edit: true });
+      console.log(errors.array());
+      console.log(matchedData(req));
+    } else {
+      const { id } = req.params;
+      await queries.updateSeries(id, matchedData(req));
+      console.log('success');
+      res.redirect('/');
+    }
+  },
+]);
 
 // Server
 const PORT = 3000;

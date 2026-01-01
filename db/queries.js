@@ -87,6 +87,68 @@ async function deleteGenre(id) {
   await pool.query(genreSeriesDeleteQuery, [id]);
   await pool.query(genreDeleteQuery, [id]);
 }
+const seriesUpdateQuery = `UPDATE series
+SET title = $2,
+    chapter_count = $3,
+    status = $4, 
+    publisher = $5, 
+    author = $6,
+    image_link = $7, 
+    release_date = $8
+WHERE id = $1`;
+
+const getSeriesGenreQuery = `SELECT genre_id
+FROM series_genre
+WHERE series_id = $1`;
+
+function generateDeleteQuery(genreArray) {
+  let where = 'WHERE series_id = $1 AND genre_id = $2';
+  for (let i = 3; i < genreArray.length + 2; i++) {
+    where += ` OR series_id = $1 AND genre_id  = ${'$' + i}`;
+  }
+  return `DELETE FROM series_genre ${where}`;
+}
+
+function generateInsertQuery(genreArray) {
+  let values = 'VALUES ($1, $2)';
+  for (let i = 3; i < genreArray.length + 2; i++) {
+    values += `, ($1, ${'$' + i})`;
+  }
+  return `INSERT INTO series_genre (series_id, genre_id) ${values}`;
+}
+
+async function updateSeries(id, dataObject) {
+  const { title, chapterCount, status, publisher, author, image, date, genres } = dataObject;
+  await pool.query(seriesUpdateQuery, [
+    id,
+    title,
+    chapterCount,
+    status,
+    publisher,
+    author,
+    image || '',
+    new Date(date),
+  ]);
+  if (!genres) {
+    await pool.query(seriesGenreDeleteQuery, [id]);
+  } else {
+    const { rows } = await pool.query(getSeriesGenreQuery, [id]);
+    const currentSeriesGenre = rows.map((g) => g.genre_id.toString());
+    const genreToRemove = currentSeriesGenre.filter((genre) => !genres.includes(genre));
+    const genreAfterRemoving = currentSeriesGenre.filter((genre) => genres.includes(genre));
+    const genreToAdd = genres.filter((genre) => !genreAfterRemoving.includes(genre));
+
+    if (genreToRemove.length > 0) {
+      const deleteQuery = generateDeleteQuery(genreToRemove);
+      await pool.query(deleteQuery, [id, genreToRemove].flat());
+    }
+
+    if (genreToAdd.length > 0) {
+      const insertQuery = generateInsertQuery(genreToAdd);
+      await pool.query(insertQuery, [id, genreToAdd].flat());
+    }
+  }
+}
 
 module.exports = {
   getAll,
@@ -96,4 +158,5 @@ module.exports = {
   deleteManga,
   addGenre,
   deleteGenre,
+  updateSeries,
 };

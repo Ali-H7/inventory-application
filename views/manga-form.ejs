@@ -1,7 +1,7 @@
 <div class="manga-form-container">
   <div class="manga-form-content">
     <a class="back-button" href="/"><i class="fa-solid fa-arrow-left"></i><span>Back to Homepage</span></a>
-    <form action="/add-manga" method="post" class="manga-form">
+    <form action="<%= edit ? `/series/${series.id}/edit` : '/add-manga'%>" method="post" class="manga-form">
       <div class="add-input-container">
         <label class="input-label" for="title">Title</label>
         <input type="text" name="title" id="title" placeholder="Dragon Ball" value="<%=series.title%>" />
