@@ -42,7 +42,7 @@ app.get('/add-manga', async (req, res) => {
     date: '',
     genres: '',
   };
-  res.render('add-manga', { series, genre, errors: {} });
+  res.render('add-manga', { series, genre, errors: {}, edit: false });
 });
 
 const { body, validationResult, matchedData } = require('express-validator');
@@ -75,8 +75,9 @@ app.post('/add-manga', [
     if (!errors.isEmpty()) {
       const { body: series } = req;
       const genre = await queries.getGenre();
-      res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }) });
+      res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }), edit: false });
       console.log(errors.array());
+      console.log(matchedData(req));
     } else {
       await queries.addManga(matchedData(req));
       console.log('success');
@@ -106,6 +107,30 @@ app.post('/series/:id/delete', async (req, res) => {
   const { id } = req.params;
   await queries.deleteManga(id);
   res.redirect('/');
+});
+
+function formateDate(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1 <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+  const day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate();
+  return `${year}-${month}-${day}`;
+}
+
+app.get('/series/:id/edit', async (req, res) => {
+  const { id } = req.params;
+  const series = await queries.getManga(id);
+  const transformedSeries = {
+    ...series,
+    chapterCount: series.chapter_count,
+    image: series.image_link,
+    date: formateDate(series.release_date),
+    // database return [null] when no genre found for a series in it
+    genres: series.genre[0] === null ? null : series.genre.map((genre) => genre.id.toString()),
+  };
+  console.log(series);
+  console.log(transformedSeries);
+  const genre = await queries.getGenre();
+  res.render('add-manga', { series: transformedSeries, genre, errors: {}, edit: true });
 });
 
 // Server

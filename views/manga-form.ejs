@@ -48,7 +48,11 @@
           <% }); %>
         </select>
       </div>
-      <button class="manga-form-btn" type="submit">Add Manga <i class="fa-regular fa-plus"></i></button>
+      <% if (edit) { %>
+          <button class="manga-form-btn" type="submit">Edit Entry <i class="fa-solid fa-pen-to-square"></i></button>
+      <% } else { %>
+          <button class="manga-form-btn" type="submit">Add Entry <i class="fa-regular fa-plus"></i></button>
+     <% } %>
     </form>
   </div>
 </div>

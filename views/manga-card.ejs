@@ -12,7 +12,7 @@
       <h2><%=s.title%></h2>
     </a>
     <div class="edit-delete-btn">
-      <form action="/series/edit/<%=s.id%>" method="get">
+      <form action="/series/<%=s.id%>/edit" method="get">
         <button class="series-edit-btn" type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
       </form>
       <form action="/series/<%=s.id%>/delete" method="post">
