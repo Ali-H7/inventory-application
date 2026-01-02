@@ -150,6 +150,33 @@ async function updateSeries(id, dataObject) {
   }
 }
 
+function generateFilterQuery(genre) {
+  let list;
+
+  if (Array.isArray(genre)) {
+    const query = [];
+    for (let i = 1; i <= genre.length; i++) {
+      query.push(`${'$' + i + ' '}`);
+    }
+    list = '(' + query.toString().trim() + ')';
+  } else {
+    list = '($1)';
+  }
+
+  return `SELECT series.id, title, author, image_link
+FROM series
+JOIN series_genre
+ON series.id = series_genre.series_id
+WHERE genre_id IN ${list}
+GROUP BY series.id`;
+}
+
+async function getFiltered(genres) {
+  const filterQuery = generateFilterQuery(genres);
+  const { rows } = await pool.query(filterQuery, [genres].flat());
+  return rows;
+}
+
 module.exports = {
   getAll,
   getManga,
@@ -159,4 +186,5 @@ module.exports = {
   addGenre,
   deleteGenre,
   updateSeries,
+  getFiltered,
 };

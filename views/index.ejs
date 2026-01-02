@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/reset.css" />
     <link rel="stylesheet" href="/styles.css" />
+    <link href="/vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +16,17 @@
     <title>Manga Archive</title>
   </head>
   <body>
-    <div class="body-container"><%- include('header') %> <%- include('main-content', {data}) %></div>
+    <div class="body-container">
+      <%- include('header') %>
+
+      <div class="content"><%- include('filter', {genre}) %> <%- include('main-content', {data}) %></div>
+    </div>
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/select2/dist/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('.genres').select2();
+      });
+    </script>
   </body>
 </html>

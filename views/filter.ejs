@@ -1,0 +1,11 @@
+<form class="filter-form" action="/filter" method="get">
+  <div class="filter-input-container">
+    <label for="genres">Filter By Genre</label>
+    <select class="genres" id="genres" name="genres" multiple>
+      <% genre.forEach((g)=>{ %>
+      <option value="<%=g.id%>"><%=g.genre_name%></option>
+      <% }); %>
+    </select>
+  </div>
+  <button class="filter-btn" type="submit">Filter <i class="fa-solid fa-filter"></i></button>
+</form>

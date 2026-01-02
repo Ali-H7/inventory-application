@@ -15,7 +15,8 @@ app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 // routes
 app.get('/', async (req, res) => {
   const data = await queries.getAll();
-  res.render('index', { data });
+  const genre = await queries.getGenre();
+  res.render('index', { data, genre });
 });
 
 app.get('/series/:id', async (req, res) => {
@@ -153,6 +154,13 @@ app.post('/series/:id/edit', [
     }
   },
 ]);
+
+app.get('/filter', async (req, res) => {
+  const { genres } = req.query;
+  const data = await queries.getFiltered(genres);
+  const genre = await queries.getGenre();
+  res.render('index', { data, genre });
+});
 
 // Server
 const PORT = 3000;
