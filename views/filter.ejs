@@ -3,7 +3,7 @@
     <label for="genres">Filter By Genre</label>
     <select class="genres" id="genres" name="genres" multiple>
       <% genre.forEach((g)=>{ %>
-      <option value="<%=g.id%>"><%=g.genre_name%></option>
+      <option value="<%=g.id%>" <%= selectedGenres.includes(g.id.toString()) ? 'selected' : ''%>><%=g.genre_name%></option>
       <% }); %>
     </select>
   </div>

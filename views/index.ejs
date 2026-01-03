@@ -19,7 +19,9 @@
     <div class="body-container">
       <%- include('header') %>
 
-      <div class="content"><%- include('filter', {genre}) %> <%- include('main-content', {data}) %></div>
+      <div class="content">
+        <%- include('filter', {genre, selectedGenres}) %> <%- include('main-content', {data}) %>
+      </div>
     </div>
     <script src="/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/vendor/select2/dist/js/select2.min.js"></script>

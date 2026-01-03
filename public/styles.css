@@ -81,6 +81,10 @@ body {
   gap: 64px;
 }
 
+.filter-warning {
+  font-size: 1.6rem;
+}
+
 .card {
   max-width: 200px;
   max-height: 350px;

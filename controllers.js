@@ -30,7 +30,7 @@ const validateUserInput = [
 async function homepageGet(req, res) {
   const data = await queries.getAll();
   const genre = await queries.getGenre();
-  res.render('index', { data, genre });
+  res.render('index', { data, genre, selectedGenres: [] });
 }
 
 async function mangaPageGet(req, res) {
@@ -45,9 +45,14 @@ async function mangaPageGet(req, res) {
 
 async function mangaFilterGet(req, res) {
   const { genres } = req.query;
+  if (!genres) {
+    return res.redirect('/');
+  }
+
   const data = await queries.getFiltered(genres);
   const genre = await queries.getGenre();
-  res.render('index', { data, genre });
+
+  res.render('index', { data, genre, selectedGenres: Array.isArray(genres) ? genres : [genres] });
 }
 
 async function mangaFormGet(req, res) {
