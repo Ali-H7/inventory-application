@@ -5,7 +5,7 @@ const { body, validationResult, matchedData } = require('express-validator');
 // validations
 
 const validateUserInput = [
-  body('title').trim().notEmpty().withMessage('Manga Title is Required'),
+  body('title').trim().notEmpty().withMessage('Manga Title is required'),
   body('chapterCount')
     .trim()
     .notEmpty()
@@ -13,13 +13,13 @@ const validateUserInput = [
     .isNumeric()
     .withMessage('Only numbers are allowed for the Chapter Count'),
   body('status').notEmpty().withMessage('Please choose the status of the Manga'),
-  body('publisher').trim().notEmpty().withMessage('Publisher is Required'),
-  body('author').trim().notEmpty().withMessage('Author is Required'),
+  body('publisher').trim().notEmpty().withMessage('Publisher is required'),
+  body('author').trim().notEmpty().withMessage('Author is required'),
   body('image')
     .optional({ values: 'falsy' })
     .trim()
     .matches(/\.(jpg|jpeg|png|gif|webp)$/i)
-    .withMessage(`Image Link field an image with the extension 'jpg, jpeg, png, gif, webp.'`),
+    .withMessage(`The Image Link field must contain an image with the extension .jpg, .jpeg, .png, .gif, or .webp`),
   body('date').isDate().withMessage('Please select a date'),
   body('genres').optional().trim().toArray(),
   body('genres.*').optional().isNumeric().withMessage('Invalid Genre format'),
@@ -67,7 +67,7 @@ async function mangaFormGet(req, res) {
     date: '',
     genres: '',
   };
-  res.render('add-manga', { series, genre, errors: {}, edit: false });
+  res.render('add-manga', { series, genre, errors: [], edit: false });
 }
 
 async function mangaFormPost(req, res) {
@@ -97,7 +97,7 @@ async function mangaEditGet(req, res) {
   console.log(series);
   console.log(transformedSeries);
   const genre = await queries.getGenre();
-  res.render('add-manga', { series: transformedSeries, genre, errors: {}, edit: true });
+  res.render('add-manga', { series: transformedSeries, genre, errors: [], edit: true });
 }
 
 async function mangaEditPost(req, res) {
@@ -106,9 +106,8 @@ async function mangaEditPost(req, res) {
   if (!errors.isEmpty()) {
     const { body: series } = req;
     const genre = await queries.getGenre();
+    console.log(errors.array({ onlyFirstError: true }));
     res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }), edit: true });
-    console.log(errors.array());
-    console.log(matchedData(req));
   } else {
     const { id } = req.params;
     await queries.updateSeries(id, matchedData(req));

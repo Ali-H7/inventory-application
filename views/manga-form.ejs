@@ -2,6 +2,9 @@
   <div class="manga-form-content">
     <a class="back-button" href="/"><i class="fa-solid fa-arrow-left"></i><span>Back to Homepage</span></a>
     <form action="<%= edit ? `/series/${series.id}/edit` : '/add-manga'%>" method="post" class="manga-form">
+      <% if (errors.length > 0) { %>
+            <%- include('errors', {errors}) %>
+      <% } %>
       <div class="add-input-container">
         <label class="input-label" for="title">Title</label>
         <input type="text" name="title" id="title" placeholder="Dragon Ball" value="<%=series.title%>" />
