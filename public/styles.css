@@ -11,14 +11,28 @@ body {
   align-items: center;
   height: 96px;
   font-size: 2.4rem;
-  padding: 0 32px;
+  padding: 0 40px;
 }
 
+.logo {
+  font-size: clamp(3.2rem, 11.1vw, 4.8rem);
+}
 .header-links {
   list-style: none;
   display: flex;
   gap: 32px;
-  font-size: 2.4rem;
+  font-size: clamp(2rem, 5.7vw, 2.4rem);
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    height: 120px;
+  }
+  .header-links {
+    padding-inline-start: 0;
+  }
 }
 
 .content {
