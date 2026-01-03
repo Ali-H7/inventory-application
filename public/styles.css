@@ -223,7 +223,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 64px;
+  padding: 64px 32px;
   gap: 16px;
 }
 
@@ -262,7 +262,9 @@ img {
   color: #fff;
   padding-left: 2px;
 }
-
+.genre-input {
+  width: 100%;
+}
 .genre-input,
 .genre-add {
   border-radius: 8px;
@@ -318,6 +320,18 @@ img {
 
 .genere-delete-button i:hover {
   color: red;
+}
+
+@media (max-width: 500px) {
+  .genre-list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0;
+  }
+  .genre-delete-container {
+    justify-content: space-between;
+  }
 }
 
 /* add manga */
