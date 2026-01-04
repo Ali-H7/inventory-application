@@ -323,6 +323,13 @@ img {
 }
 
 @media (max-width: 500px) {
+  .genre-container {
+    padding: 64px 16px;
+  }
+
+  .genere-form-content {
+    padding: 64px 16px;
+  }
   .genre-list {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -339,7 +346,7 @@ img {
 .manga-form-container {
   display: flex;
   justify-content: center;
-  padding: 64px 0;
+  padding: 64px 32px;
   font-size: 1.6rem;
 }
 
@@ -382,7 +389,7 @@ img {
 }
 
 .manga-form input,
-select {
+.manga-form select {
   padding: 8px;
   border-radius: 8px;
   border: none;
@@ -394,7 +401,7 @@ select {
 .manga-form-btn {
   padding: 8px;
   border-radius: 8px;
-  width: 35%;
+  width: 144px;
   align-self: center;
   margin-top: 32px;
   background-color: #222b3f;
@@ -412,4 +419,13 @@ select {
 }
 .manga-form-btn i {
   color: #4ec6e0;
+}
+
+@media (max-width: 500px) {
+  .manga-form {
+    padding: 64px 16px;
+  }
+  .manga-form-container {
+    padding: 64px 16px;
+  }
 }
