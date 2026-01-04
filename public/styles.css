@@ -475,3 +475,20 @@ img {
     padding: 64px 16px;
   }
 }
+
+/* 404 */
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+  height: 100%;
+  font-size: 1.6rem;
+}
+
+.not-found-timer {
+  color: #9e9e9e;
+}

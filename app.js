@@ -28,6 +28,10 @@ app.get('/manage-genre', controllers.genreFormGet);
 app.post('/add-genre', controllers.genreFormPost);
 app.post('/manage-genre/delete-genre/:id', controllers.genreDeletePost);
 
+app.use((req, res) => {
+  res.render('404');
+});
+
 // Server
 const PORT = 3000;
 app.listen(PORT, (error) => {
