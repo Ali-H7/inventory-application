@@ -114,8 +114,14 @@ async function mangaEditPost(req, res) {
 
 async function mangaDeletePost(req, res) {
   const { id } = req.params;
-  await queries.deleteManga(id);
-  res.redirect('/');
+  const { password } = req.body;
+
+  if (password === process.env.ADMIN_PASSWORD) {
+    await queries.deleteManga(id);
+    res.redirect('/');
+  } else {
+    res.redirect('/');
+  }
 }
 
 async function genreFormGet(req, res) {
