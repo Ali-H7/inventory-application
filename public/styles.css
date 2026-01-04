@@ -476,9 +476,9 @@ img {
   }
 }
 
-/* 404 */
+/* 404 & error*/
 
-.not-found {
+.error-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -489,6 +489,6 @@ img {
   font-size: 1.6rem;
 }
 
-.not-found-timer {
+.error-timer {
   color: #9e9e9e;
 }

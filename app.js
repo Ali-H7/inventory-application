@@ -32,6 +32,11 @@ app.use((req, res) => {
   res.render('404');
 });
 
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.render('error-page', { error: err.message });
+});
+
 // Server
 const PORT = 3000;
 app.listen(PORT, (error) => {

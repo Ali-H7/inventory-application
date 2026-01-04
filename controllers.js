@@ -120,7 +120,7 @@ async function mangaDeletePost(req, res) {
     await queries.deleteManga(id);
     res.redirect('/');
   } else {
-    res.redirect('/');
+    throw new Error('Password Incorrect!');
   }
 }
 
