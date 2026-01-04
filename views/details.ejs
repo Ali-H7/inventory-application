@@ -2,7 +2,14 @@
   <div class="details-container">
     <a class="back-button" href="/"><i class="fa-solid fa-arrow-left"></i><span>Back to Homepage</span></a>
     <div class="details">
+      <% if (series.image_link) { %>
       <img src="<%=series.image_link%>" alt="Cover image of <%=series.title%>" />
+      <% } else { %>
+      <div class="placeholder-cover">
+        <p>Cover Not Available</p>
+        <p class="cover-text">You can edit to add the missing cover</p>
+      </div>
+      <% } %>
       <div class="details-series-container">
         <p class="details-title"><%=series.title%></p>
         <div class="details-info-container">

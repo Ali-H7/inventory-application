@@ -94,8 +94,6 @@ async function mangaEditGet(req, res) {
     // database return [null] when no genre found for a series in it
     genres: series.genre[0] === null ? null : series.genre.map((genre) => genre.id.toString()),
   };
-  console.log(series);
-  console.log(transformedSeries);
   const genre = await queries.getGenre();
   res.render('add-manga', { series: transformedSeries, genre, errors: [], edit: true });
 }
@@ -106,12 +104,10 @@ async function mangaEditPost(req, res) {
   if (!errors.isEmpty()) {
     const { body: series } = req;
     const genre = await queries.getGenre();
-    console.log(errors.array({ onlyFirstError: true }));
     res.render('add-manga', { series, genre, errors: errors.array({ onlyFirstError: true }), edit: true });
   } else {
     const { id } = req.params;
     await queries.updateSeries(id, matchedData(req));
-    console.log('success');
     res.redirect('/');
   }
 }
