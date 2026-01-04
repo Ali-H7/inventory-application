@@ -3,13 +3,15 @@
     <% if (s.image_link) { %>
     <img src="<%=s.image_link%>" alt="Cover image of <%=s.title%>" />
     <% } else { %>
-    <div class="placeholder-cover">Cover Not Available</div>
-    <!-- <img src="https://cdn.myanimelist.net/images/anime/1015/138006.jpg" alt="" /> -->
+    <div class="placeholder-cover">
+      <p>Cover Not Available</p>
+      <p class="cover-text">You can edit to add the missing cover</p>
+    </div>
     <% } %>
   </a>
   <div class="card-series-title">
     <a href="/series/<%=s.id%>">
-      <h2><%=s.title%></h2>
+      <h2 class="card-title"><%=s.title%></h2>
     </a>
     <div class="edit-delete-btn">
       <form action="/series/<%=s.id%>/edit" method="get">
@@ -20,5 +22,5 @@
       </form>
     </div>
   </div>
-  <h3><%=s.author%></h3>
+  <h3 class="card-author-name"><%=s.author%></h3>
 </div>

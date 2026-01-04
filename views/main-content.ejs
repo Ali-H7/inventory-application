@@ -1,7 +1,7 @@
-<div class="content-container">
-  <% if (data.length > 0) { %>
-  <div class="list"><% data.forEach((s)=> { %> <%- include('manga-card', {s}) %> <% }) %></div>
-  <% } else { %>
-  <p class="filter-warning">No manga available. Try adding some titles or changing your filters.</p>
-  <% } %>
-</div>
+<!-- <div class="content-container"> -->
+<% if (data.length > 0) { %>
+<div class="list"><% data.forEach((s)=> { %> <%- include('manga-card', {s}) %> <% }) %></div>
+<% } else { %>
+<p class="filter-warning">No manga available. Try adding some titles or changing your filters.</p>
+<% } %>
+<!-- </div> -->
