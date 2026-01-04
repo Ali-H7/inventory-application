@@ -18,10 +18,15 @@
         <button class="series-edit-btn" type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
       </form>
       <form action="/series/<%=s.id%>/delete" method="post">
-        <dialog close class="delete-dialog-<%=s.id%>">
-          <label class="delete-password-label" for="genre">Admin Password</label>
-          <input class="delete-password-input" type="password" name="password" required />
-          <button type="submit">DELETE</button>
+        <dialog close class="delete-dialog-<%=s.id%> dialog-container">
+          <i data-close="<%=s.id%>" class="fa-solid fa-square-xmark delete-dialog-close"></i>
+          <div class="delete-dialog">
+            <div>
+              <label class="delete-password-label" for="genre">Admin Password</label>
+              <input class="delete-password-input" type="password" name="password" required />
+            </div>
+            <button type="submit" class="series-delete-submit-btn">DELETE</button>
+          </div>
         </dialog>
         <button data-delete="<%=s.id%>" class="series-delete-btn" type="button">
           <i class="fa-regular fa-trash-can"></i>
