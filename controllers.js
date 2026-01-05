@@ -4,6 +4,12 @@ const { body, validationResult, matchedData, custom } = require('express-validat
 
 // validations
 
+function authentication(req, res, next) {
+  const { password } = req.body;
+  if (password === process.env.ADMIN_PASSWORD) next();
+  else throw new Error('Password Incorrect!');
+}
+
 const validateUserInput = [
   body('title').trim().notEmpty().withMessage('Manga Title is required'),
   body('chapterCount')
@@ -125,14 +131,8 @@ async function mangaEditPost(req, res) {
 
 async function mangaDeletePost(req, res) {
   const { id } = req.params;
-  const { password } = req.body;
-
-  if (password === process.env.ADMIN_PASSWORD) {
-    await queries.deleteManga(id);
-    res.redirect('/');
-  } else {
-    throw new Error('Password Incorrect!');
-  }
+  await queries.deleteManga(id);
+  res.redirect('/');
 }
 
 async function genreFormGet(req, res) {
@@ -154,17 +154,12 @@ async function genreFormPost(req, res) {
 
 async function genreDeletePost(req, res) {
   const { id } = req.params;
-  const { password } = req.body;
-
-  if (password === process.env.ADMIN_PASSWORD) {
-    await queries.deleteGenre(id);
-    res.redirect('/manage-genre');
-  } else {
-    throw new Error('Password Incorrect!');
-  }
+  await queries.deleteGenre(id);
+  res.redirect('/manage-genre');
 }
 
 module.exports = {
+  authentication,
   validateUserInput,
   validateUserGenreInput,
   homepageGet,

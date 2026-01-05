@@ -21,12 +21,12 @@ app.get('/filter', controllers.mangaFilterGet);
 app.get('/add-manga', controllers.mangaFormGet);
 app.post('/add-manga', [controllers.validateUserInput, controllers.mangaFormPost]);
 app.get('/series/:id/edit', controllers.mangaEditGet);
-app.post('/series/:id/edit', [controllers.validateUserInput, controllers.mangaEditPost]);
-app.post('/series/:id/delete', controllers.mangaDeletePost);
+app.post('/series/:id/edit', [controllers.authentication, controllers.validateUserInput, controllers.mangaEditPost]);
+app.post('/series/:id/delete', [controllers.authentication, controllers.mangaDeletePost]);
 
 app.get('/manage-genre', controllers.genreFormGet);
 app.post('/add-genre', [controllers.validateUserGenreInput, controllers.genreFormPost]);
-app.post('/manage-genre/delete-genre/:id', controllers.genreDeletePost);
+app.post('/manage-genre/delete-genre/:id', [controllers.authentication, controllers.genreDeletePost]);
 
 app.use((req, res) => {
   res.render('404');
