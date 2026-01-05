@@ -505,7 +505,7 @@ img {
   padding: 48px 32px 32px 32px;
   border-radius: 16px;
   background-color: #0f131c;
-  position: relative;
+  bottom: 35%;
 }
 .dialog-container::backdrop {
   background-color: rgba(0, 0, 0, 0.3);
