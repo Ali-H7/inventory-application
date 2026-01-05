@@ -8,5 +8,8 @@ deleteBtns.forEach((btn) => {
 closeBtns.forEach((btn) => {
   const id = btn.dataset.close;
   const dialog = document.querySelector(`.delete-dialog-${id}`);
-  btn.addEventListener('click', () => dialog.close());
+  btn.addEventListener('click', () => {
+    document.querySelector(`#password-${id}`).value = '';
+    dialog.close();
+  });
 });

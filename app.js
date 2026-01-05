@@ -28,9 +28,9 @@ app.get('/manage-genre', controllers.genreFormGet);
 app.post('/add-genre', [controllers.validateUserGenreInput, controllers.genreFormPost]);
 app.post('/manage-genre/delete-genre/:id', controllers.genreDeletePost);
 
-// app.use((req, res) => {
-//   res.render('404');
-// });
+app.use((req, res) => {
+  res.render('404');
+});
 
 app.use((err, req, res, next) => {
   console.log(err.stack);
