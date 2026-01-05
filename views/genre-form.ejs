@@ -1,4 +1,6 @@
 <form action="/add-genre" method="post">
+  <% if (errors.length > 0) { %> <%- include('errors', {errors}) %> <% } %>
+
   <div class="genre-form">
     <div class="genre-input-container">
       <label class="gnere-form-label" for="genre">Genre name</label>

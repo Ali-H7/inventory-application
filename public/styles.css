@@ -295,6 +295,8 @@ img {
   display: flex;
   gap: 8px;
   align-items: flex-end;
+  justify-content: center;
+  padding-top: 16px;
 }
 
 .genre-input-container {
@@ -500,6 +502,10 @@ img {
   background-color: #0f131c;
   position: relative;
 }
+.dialog-container::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .delete-dialog {
   font-size: 1.6rem;
   display: flex;
@@ -544,4 +550,8 @@ img {
   background-color: #b33939;
   color: #fff;
   cursor: pointer;
+}
+
+.manga-form-errors {
+  padding-inline-start: 0;
 }

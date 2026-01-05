@@ -1,6 +1,6 @@
 const queries = require('./db/queries');
 const helpers = require('./helpers');
-const { body, validationResult, matchedData } = require('express-validator');
+const { body, validationResult, matchedData, custom } = require('express-validator');
 
 // validations
 
@@ -23,6 +23,17 @@ const validateUserInput = [
   body('date').isDate().withMessage('Please select a date'),
   body('genres').optional().trim().toArray(),
   body('genres.*').optional().isNumeric().withMessage('Invalid Genre format'),
+];
+
+const validateUserGenreInput = [
+  body('genre')
+    .trim()
+    .custom(async (value) => {
+      const genre = await queries.getOneGenre(value);
+      if (genre) {
+        throw new Error('This genre name is already taken. Please try another one');
+      }
+    }),
 ];
 
 // controllers
@@ -126,13 +137,19 @@ async function mangaDeletePost(req, res) {
 
 async function genreFormGet(req, res) {
   const genres = await queries.getGenre();
-  res.render('manage-genre', { genres });
+  res.render('manage-genre', { genres, errors: [] });
 }
 
 async function genreFormPost(req, res) {
-  const { genre } = req.body;
-  await queries.addGenre(genre);
-  res.redirect('/manage-genre');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const genres = await queries.getGenre();
+    res.render('manage-genre', { genres, errors: errors.array() });
+  } else {
+    const { genre } = req.body;
+    await queries.addGenre(genre);
+    res.redirect('/manage-genre');
+  }
 }
 
 async function genreDeletePost(req, res) {
@@ -143,6 +160,7 @@ async function genreDeletePost(req, res) {
 
 module.exports = {
   validateUserInput,
+  validateUserGenreInput,
   homepageGet,
   mangaPageGet,
   mangaFilterGet,

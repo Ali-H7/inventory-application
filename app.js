@@ -25,7 +25,7 @@ app.post('/series/:id/edit', [controllers.validateUserInput, controllers.mangaEd
 app.post('/series/:id/delete', controllers.mangaDeletePost);
 
 app.get('/manage-genre', controllers.genreFormGet);
-app.post('/add-genre', controllers.genreFormPost);
+app.post('/add-genre', [controllers.validateUserGenreInput, controllers.genreFormPost]);
 app.post('/manage-genre/delete-genre/:id', controllers.genreDeletePost);
 
 app.use((req, res) => {
