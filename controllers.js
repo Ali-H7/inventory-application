@@ -11,7 +11,16 @@ function authentication(req, res, next) {
 }
 
 const validateUserInput = [
-  body('title').trim().notEmpty().withMessage('Manga Title is required'),
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Manga Title is required')
+    .custom(async (value) => {
+      const title = await queries.getTitle(value);
+      if (title) {
+        throw new Error('Title must be unique. Please try another one');
+      }
+    }),
   body('chapterCount')
     .trim()
     .notEmpty()

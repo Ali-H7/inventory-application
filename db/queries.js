@@ -184,6 +184,14 @@ async function getOneGenre(genre) {
   return rows[0];
 }
 
+const titleQuery = `SELECT title FROM series
+WHERE UPPER(title) = UPPER($1);`;
+
+async function getTitle(title) {
+  const { rows } = await pool.query(titleQuery, [title]);
+  return rows[0];
+}
+
 module.exports = {
   getAll,
   getManga,
@@ -195,4 +203,5 @@ module.exports = {
   updateSeries,
   getFiltered,
   getOneGenre,
+  getTitle,
 };
