@@ -154,8 +154,14 @@ async function genreFormPost(req, res) {
 
 async function genreDeletePost(req, res) {
   const { id } = req.params;
-  await queries.deleteGenre(id);
-  res.redirect('/manage-genre');
+  const { password } = req.body;
+
+  if (password === process.env.ADMIN_PASSWORD) {
+    await queries.deleteGenre(id);
+    res.redirect('/manage-genre');
+  } else {
+    throw new Error('Password Incorrect!');
+  }
 }
 
 module.exports = {

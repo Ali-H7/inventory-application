@@ -442,6 +442,11 @@ img {
   border-radius: 8px;
   border: none;
 }
+
+.manga-form-errors {
+  padding-inline-start: 0;
+}
+
 .select2-container {
   color: #000;
   font-size: 1.6rem;
@@ -537,7 +542,7 @@ img {
   width: 100%;
 }
 
-.series-delete-submit-btn {
+.delete-submit-btn {
   color: #4ec6e0;
   background-color: #222b3f;
   border: none;
@@ -546,12 +551,8 @@ img {
   font-weight: bold;
 }
 
-.series-delete-submit-btn:hover {
+.delete-submit-btn:hover {
   background-color: #b33939;
   color: #fff;
   cursor: pointer;
-}
-
-.manga-form-errors {
-  padding-inline-start: 0;
 }
