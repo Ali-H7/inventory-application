@@ -52,7 +52,9 @@
         </select>
       </div>
       <% if (edit) { %>
-          <button class="manga-form-btn" type="submit">Edit Entry <i class="fa-solid fa-pen-to-square"></i></button>
+          <button data-open="<%=series.id%>" class="manga-form-btn dialog-open-btn" type="button">Edit Entry <i class="fa-solid fa-pen-to-square"></i></button>
+          <%- include('admin-dialog', {id: series.id, actionWord: 'Edit'}) %>
+
       <% } else { %>
           <button class="manga-form-btn" type="submit">Add Entry <i class="fa-regular fa-plus"></i></button>
      <% } %>

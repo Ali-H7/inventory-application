@@ -3,10 +3,10 @@
   <li class="genre-delete-container">
     <p><%=genre.genre_name%></p>
     <form action="/manage-genre/delete-genre/<%=genre.id%>" method="post">
-      <button data-delete="<%=genre.id%>" class="genere-delete-button delete-dialog-open" type="button">
+      <button data-open="<%=genre.id%>" class="genere-delete-button dialog-open-btn" type="button">
         <i class="fa-regular fa-x" aria-hidden="true"></i>
       </button>
-      <%- include('delete-dialog', {id: genre.id}) %>
+      <%- include('admin-dialog', {id: genre.id, actionWord: 'Delete'}) %>
     </form>
   </li>
   <% }) %>

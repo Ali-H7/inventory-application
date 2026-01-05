@@ -18,10 +18,10 @@
         <button class="series-edit-btn" type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
       </form>
       <form action="/series/<%=s.id%>/delete" method="post">
-        <button data-delete="<%=s.id%>" class="series-delete-btn delete-dialog-open" type="button">
+        <button data-open="<%=s.id%>" class="series-delete-btn dialog-open-btn" type="button">
           <i class="fa-regular fa-trash-can"></i>
         </button>
-        <%- include('delete-dialog', {id: s.id}) %>
+        <%- include('admin-dialog', {id: s.id, actionWord: 'Delete'}) %>
       </form>
     </div>
   </div>

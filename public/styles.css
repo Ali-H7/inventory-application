@@ -511,7 +511,7 @@ img {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.delete-dialog {
+.admin-dialog {
   font-size: 1.6rem;
   display: flex;
   flex-direction: column;
@@ -521,28 +521,28 @@ img {
   gap: 16px;
 }
 
-.delete-password-label {
+.password-label {
   color: #fff;
   font-weight: bold;
 }
 
-.delete-dialog-close {
+.dialog-close {
   color: #fff;
   position: absolute;
   right: 16px;
   bottom: 85%;
 }
 
-.delete-dialog-close:hover {
+.dialog-close:hover {
   cursor: pointer;
 }
 
-.delete-password-input {
+.password-input {
   margin-top: 4px;
   width: 100%;
 }
 
-.delete-submit-btn {
+.admin-submit-btn {
   color: #4ec6e0;
   background-color: #222b3f;
   border: none;
@@ -551,7 +551,7 @@ img {
   font-weight: bold;
 }
 
-.delete-submit-btn:hover {
+.admin-submit-btn:hover {
   background-color: #b33939;
   color: #fff;
   cursor: pointer;
