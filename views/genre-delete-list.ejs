@@ -3,19 +3,10 @@
   <li class="genre-delete-container">
     <p><%=genre.genre_name%></p>
     <form action="/manage-genre/delete-genre/<%=genre.id%>" method="post">
-      <button data-delete="<%=genre.id%>" class="genere-delete-button" type="button">
+      <button data-delete="<%=genre.id%>" class="genere-delete-button delete-dialog-open" type="button">
         <i class="fa-regular fa-x" aria-hidden="true"></i>
       </button>
-      <dialog close class="delete-dialog-<%=genre.id%> dialog-container">
-        <i data-close="<%=genre.id%>" class="fa-solid fa-square-xmark delete-dialog-close"></i>
-        <div class="delete-dialog">
-          <div>
-            <label class="delete-password-label" for="genre">Admin Password</label>
-            <input class="delete-password-input" type="password" name="password" required />
-          </div>
-          <button type="submit" class="delete-submit-btn">DELETE</button>
-        </div>
-      </dialog>
+      <%- include('delete-dialog', {id: genre.id}) %>
     </form>
   </li>
   <% }) %>

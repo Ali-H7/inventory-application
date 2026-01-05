@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/f763e9ac42.js" crossorigin="anonymous"></script>
+    <script src="/helpers/handle-delete-dialog.js" defer></script>
     <title>Manga Archive - Manage Genre</title>
   </head>
   <body>
@@ -22,20 +23,5 @@
         <div class="genere-form-content"><%- include('genre-form') %> <%- include('genre-delete-list', genres) %></div>
       </div>
     </div>
-
-    <script>
-      const deleteBtns = document.querySelectorAll('.genere-delete-button');
-      const closeBtns = document.querySelectorAll('.delete-dialog-close');
-      deleteBtns.forEach((btn) => {
-        const id = btn.dataset.delete;
-        const dialog = document.querySelector(`.delete-dialog-${id}`);
-        btn.addEventListener('click', () => dialog.showModal());
-      });
-      closeBtns.forEach((btn) => {
-        const id = btn.dataset.close;
-        const dialog = document.querySelector(`.delete-dialog-${id}`);
-        btn.addEventListener('click', () => dialog.close());
-      });
-    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 const queries = require('./db/queries');
-const helpers = require('./helpers');
+const formatDate = require('./public/helpers/format-date');
 const { body, validationResult, matchedData, custom } = require('express-validator');
 
 // validations
@@ -101,7 +101,7 @@ async function mangaEditGet(req, res) {
     ...series,
     chapterCount: series.chapter_count,
     image: series.image_link,
-    date: helpers.formateDate(series.release_date),
+    date: formatDate(series.release_date),
     // database return [null] when no genre found for a series in it
     genres: series.genre[0] === null ? null : series.genre.map((genre) => genre.id.toString()),
   };
